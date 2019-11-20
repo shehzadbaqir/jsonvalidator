@@ -1,1 +1,53 @@
-
+<html>
+  <head>JSON VALIDATOR</head>
+  <body>
+how to validate json and highlight line in code mirror using json linit
+$('#validate').click(function(){
+        try {
+        $json=editor.getValue();
+        if(IsURL($json.toString())){
+            $.getJSON($json.toString(),{},function(data,status){
+                if(status=="success"){
+                $dat=JSON.stringify(data);
+                editor.setValue($dat);
+                $djson=JSON.parse($dat);
+                $('#error').show();
+                $('#error').removeClass("alert-danger");
+                $('#error').addClass("alert-success");
+                $("#error").empty().append("Valid Json");
+                }
+                else{
+                    alert("Noting Found on URL");
+                }
+                
+                 
+            });
+        }else{
+            $djson=$json.toString();
+            $djson=jsonlint.parse($djson);
+            $('#error').show();
+            $('#error').removeClass("alert-danger");
+            $('#error').addClass("alert-success");
+            $("#error").empty().append("Valid Json"); 
+        }       
+        }
+        catch(err) {
+            var lineNumber=err;
+            var regex = /[+-]?\d+(?:\.\d+)?/g;
+            var str = lineNumber.toString();
+            var lin;
+            var match;
+             while (match = regex.exec(str)) {
+                 lin=match[0];
+                    console.log(match[0]);
+                    break;
+                }
+                $( ".CodeMirror-line:eq("+(lin-1)+")" ).css( "background-color", "#f8d7da");
+                $('#error').show();
+                $('#error').removeClass("alert-success");
+                $('#error').addClass("alert-danger");
+                 $("#error").empty().append(err);
+            }
+    })
+  </body>
+</html>  
