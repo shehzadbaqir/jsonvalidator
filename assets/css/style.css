@@ -1,0 +1,16 @@
+.specialnav{
+    height: 50px;
+    padding: 0;
+}
+.codemirror{
+    border: 1px solid black!important;
+
+}
+.what{
+    width: 100%;
+    height: auto;
+    border: 0.5px solid b;
+}
+#error{
+    display: none;
+}
