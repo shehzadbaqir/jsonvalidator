@@ -1,108 +1,155 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html>
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-   <title>JSON VALIDATOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Json validator online | jsonvalidator.online</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/theme/mdn-like.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/addon/selection/active-line.js"></script>
+    <script src="codemirror/addon/lint/json-lint.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"
+        integrity="sha256-yWZBgNxWVjnXu4Tut5/J0MAvczYc2U3SuK0svKSMaW4=" crossorigin="anonymous"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-65990606-12"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  gtag('config', 'UA-65990606-12');
+    </script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
+</head>
+
+<body>
+    <nav class="navbar  navbar-dark  bg-white portfolio-navbar gradient specialnav">
+        <div class="container"><a class="logo navbar-brand" href="#" tittle="The unltimate online json validator"
+                data-toggle="tooltip" data-html="true">jsonvalidator.online</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
     </nav>
-   <h1> how to validate json and highlight line in code mirror using json linit</h1>
-  <pre>
-$('#validate').click(function(){
-        try {
-        $json=editor.getValue();
-        if(IsURL($json.toString())){
-            $.getJSON($json.toString(),{},function(data,status){
-                if(status=="success"){
-                $dat=JSON.stringify(data);
-                editor.setValue($dat);
-                $djson=JSON.parse($dat);
-                $('#error').show();
-                $('#error').removeClass("alert-danger");
-                $('#error').addClass("alert-success");
-                $("#error").empty().append("Valid Json");
-                }
-                else{
-                    alert("Noting Found on URL");
-                }
-                
-                 
-            });
-        }else{
-            $djson=$json.toString();
-            $djson=jsonlint.parse($djson);
-            $('#error').show();
-            $('#error').removeClass("alert-danger");
-            $('#error').addClass("alert-success");
-            $("#error").empty().append("Valid Json"); 
-        }       
-        }
-        catch(err) {
-            var lineNumber=err;
-            var regex = /[+-]?\d+(?:\.\d+)?/g;
-            var str = lineNumber.toString();
-            var lin;
-            var match;
-             while (match = regex.exec(str)) {
-                 lin=match[0];
-                    console.log(match[0]);
-                    break;
-                }
-                $( ".CodeMirror-line:eq("+(lin-1)+")" ).css( "background-color", "#f8d7da");
-                $('#error').show();
-                $('#error').removeClass("alert-success");
-                $('#error').addClass("alert-danger");
-                 $("#error").empty().append(err);
-            }
-    })
- </pre>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </body>
+    <main class="page lanidng-page " style="height:auto;">
+        <div class="container mt-5">
+            <div class="row"><h3>Enter your JSON or Paste URL</h3></div>
+            <textarea class="form-control codemirror-textarea" rows="13" autofocus=""></textarea>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary text-left mt-2 mr-2 " id="validate">Validate json</button>
+                    <button class="btn btn-primary text-left mt-2 ml-2" id="reset">Clear</button>
+                </div>
+            </div>
+            <div class="row">
+                <div id=error class="alert alert-danger mt-4 mb-4">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="what">
+                        <h3 class="mt-3">What jsonvalidator.online is?</h3>
+                        <p class="lead">jsonvalidator.online, is the tool for online json validation to Validate the
+                            json format with in one click with jsut copy&paste.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Is there is any SignUp or SignIn Required to use validator?</h3>
+                    <p class="lead">"No! There is no SignIn or SignUp Required to use validator it is a unique which
+                        helps you to Validate your json with jsut copy and paste with out any registration process"</p>
+                </div>
+                <div class="col-md-12">
+                    <h3>Handy tips and tricks:</h3>
+                    <p class="lead">
+                        Tricks for using jsonvalidator.online are given below:
+                        <ul>
+                            <li>Paste Url in the text area from where you want to get Json</li>
+                            <li>Paste Valid URl from which JSON data is Required.</li>
+                            <li>There is no URL length limit.</li>
+                            <li>you cand also validate JSONP data.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <h3>Example of Valid Json data and Unvalid JSON</h3>
+                    <h4>Here's the valid json example</h4>
+                    <div class="codediv">
+                        <pre>
+                {
+                 "Computer": {
+                   "title": "computer glossary",
+                      "GlossDiv": {
+                        "title": "S",
+                           "GlossList": {
+                                "GlossEntry": {
+                                    "ID": "CS_101",
+                                    "SortAs": "CS_101",
+                                    "startTime": "time",
+                                    "endTime": "tiemend",
+                                    "ID_Abbr": "Computer Science 101",
+                                    
+                                    "GlossSee": "markup"
+                                }
+                            }
+                        }
+                    }
+               }
+        </pre>
+                    </div>
+                    <h4>Here the Invalid JSON example:</h4>
+                    <div class="codediv">
+                        <pre>
+                        {
+                         "Computer": {
+                           "title": "computer glossary",
+                        <span class="bg-danger">GlossDiv: {</span>
+                                "title": "S",
+                                   "GlossList": {
+                                        "GlossEntry": {
+                                            "ID": "CS_101",
+                                            "SortAs": "CS_101",
+                                            "startTime": "time",
+                                            "endTime": "tiemend",
+                                            "ID_Abbr": "Computer Science 101",
+                                            
+                                            "GlossSee": "markup"
+                                        }
+                                    }
+                                }
+                            }
+                       }
+                </pre>
+                    </div>
+                </div>
+                <div class="col-md-12"></div>
+            </div>
+
+        </div>
+
+    </main>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="links"><a href="#">About me</a><a href="#">Contact me</a><a href="#">Projects</a></div>
+            <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                        class="icon ion-social-instagram-outline"></i></a><a href="#"><i
+                        class="icon ion-social-twitter"></i></a></div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+
+</body>
+
 </html>
